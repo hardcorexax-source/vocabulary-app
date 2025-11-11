@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Period</h1>
+    <div class="game-mode-arr">
+        <h2 style="padding: 10px;">Выберите период времени, за который хотите повторить слова</h2>
+        <p style="padding: 20px;">От <input type="date" class="first-date-input period-input"><br><br>до <input type="date" class="second-date-input period-input"></p>
+        <button class="period-mode-btn" onclick="set_period()">Выбрать</button>
+        <button class="back-to-game-btn"><svg fill="#7f7f7f" viewBox="3 0 52 52" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><g data-name="Group 132" id="Group_132"><path d="M38,52a2,2,0,0,1-1.41-.59l-24-24a2,2,0,0,1,0-2.82l24-24a2,2,0,0,1,2.82,0,2,2,0,0,1,0,2.82L16.83,26,39.41,48.59A2,2,0,0,1,38,52Z"/></g></svg></button>
+    </div>
+<script src="index.js"></script>
+<script>
+    function set_period() {
+        let normalPeriod = false;
+        const firstDateArr = document.querySelector(".first-date-input").value.split("-").map(Number);
+        const secondDateArr = document.querySelector(".second-date-input").value.split("-").map(Number);
+        
+        if (firstDateArr[0] === secondDateArr[0]){
+            if (firstDateArr[1] === secondDateArr[1]){
+                if (firstDateArr[2] <= secondDateArr[2]){
+                    normalPeriod = true;
+                }
+            } else if (firstDateArr[1] < secondDateArr[1]){
+                normalPeriod = true;
+            }
+        } else if (firstDateArr[0] < secondDateArr[0]) {
+            normalPeriod = true;
+        }
+        
+        if (normalPeriod) {
+            localStorage.setItem( "userPeriod", JSON.stringify([firstDateArr, secondDateArr]));
+            location.href = "/gameCardPeriodMode.html";
+        } else {
+            alert("Ошибка! Вы выставили даты не правильно!");
+        }
+    }
+
+    document.querySelector(".back-to-game-btn").addEventListener('click', back_to_game);
+</script>
+</body>
+</html>

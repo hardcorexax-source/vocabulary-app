@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Игра</h1>
+
+    <div class="game-card-arr">
+        <div class="game-card game-card-period">
+            <h2>Добавленные в период времени...</h2>
+            <p>Вы можете выбрать этот режим игры, если хотите повторить добавленные в определенный период времени слова. Например 20.08.2025 - 21.08.2025.</p>
+        </div>
+
+        <div class="game-card game-card-last-words">
+            <h2>Последние добавленные</h2>
+            <p>Этот режим игры стоит выбрать, если хотите повторить N последних добавленных слов. Например 5, 10, 20...</p>
+        </div>
+
+        <div class="game-card game-card-random-words">
+            <h2>Случайные</h2>
+            <p>В этом режиме игры вы можете изучить N случайных, добавленных вами слов. Например 5, 10, 20...</p>
+        </div>
+    </div>
+
+
+    <nav class="bottom-nav-arr">
+        <nav class="bottom-nav">
+            <a class="dict" href="dictPage.html">Словарь</a>
+            <a class="new" href="#">+ Слово</a>
+            <a class="settings" href="#">Настройки</a>
+        </nav>
+    </nav>
+
+    <div class="new-word-arr">
+        <div style="position: relative;width: 100%;display: flex;justify-content: end;"><button onclick="hide_new_question_arr()" style="background-color: transparent;border: none;"><svg viewBox="0 0 32 32" width="30px" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#7f7f7f7f;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="25" y2="7"/></g></svg></button></div>
+        <h3 class="h3-eng">English word<input type="text" class="input-word input-english"></h3>
+        <h3>Слово на русском<input type="text" class="input-word input-russian"></h3>
+        <button class="new-word-btn">Добавить</button>
+    </div>
+
+    <div class="loading-page-arr"></div>
+
+    <div class="settings-page-arr">
+        <div class="settings-page">
+            <h3>Настройки</h3>
+            <a href="importJSON.html"><h4>Импорт JSON</h4></a>
+            <a href="exportJSON.html"><h4>Экспорт JSON</h4></a>
+        </div>
+    </div>
+
+    <script src="dict.js"></script>
+    <script src="translation.js"></script>
+    <script src="index.js"></script>
+    <script>
+        function go_on_gameCardPeriod() {
+            location.href = "/gameCardPeriod.html";
+        }
+        function go_on_gameCardLastWords() {
+            location.href = "/gameCardLastWords.html";
+        }
+        function go_on_gameCardRandomWords() {
+            location.href = "/gameCardRandomWords.html";
+        }
+        document.querySelector('.game-card-period').addEventListener('click', go_on_gameCardPeriod);
+        document.querySelector('.game-card-last-words').addEventListener('click', go_on_gameCardLastWords);
+        document.querySelector('.game-card-random-words').addEventListener('click', go_on_gameCardRandomWords);
+
+
+        onClickOutside(".settings-page-arr-enable", hide_settings);
+        document.querySelector('.new').addEventListener('click', show_new_question_arr);
+        document.querySelector('.new-word-btn').addEventListener('click', send_data);
+        document.querySelector('.settings').addEventListener('click', show_settings);
+        onClickOutside(".enable", hide_new_question_arr);
+    </script>
+</body>
+</html>

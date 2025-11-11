@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Словарь</h1>
+    <div class="dict-arr">
+        <h4><font color="#78b">Загрузка...</font></h4>
+    </div>
+
+
+    <nav class="bottom-nav-arr">
+        <nav class="bottom-nav">
+            <a class="dict" href="index.html">Игра</a>
+            <a class="new" href="#">+ Слово</a>
+            <a class="settings" href="#">Настройки</a>
+        </nav>
+    </nav>
+
+    <div class="new-word-arr">
+        <div style="position: relative;width: 100%;display: flex;justify-content: end;"><button onclick="hide_new_question_arr()" style="background-color: transparent;border: none;"><svg viewBox="0 0 32 32" width="30px" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#7f7f7f7f;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="25" y2="7"/></g></svg></button></div>
+        <h3 class="h3-eng">English word<input type="text" class="input-word input-english"></h3>
+        <h3>Слово на русском<input type="text" class="input-word input-russian"></h3>
+        <button class="new-word-btn">Добавить</button>
+    </div>
+
+    <div class="settings-page-arr">
+        <div class="settings-page">
+            <h3>Настройки</h3>
+            
+            <a href="importJSON.html"><h4>Импорт JSON</h4></a>
+            <a href="exportJSON.html"><h4>Экспорт JSON</h4></a>
+        </div>
+    </div>
+
+
+    <div class="game-card-arr" style="display: none;">
+        <div class="game-card game-card-period"></div>
+
+        <div class="game-card game-card-last-words"></div>
+
+        <div class="game-card game-card-random-words"></div>
+    </div>
+
+
+
+    <script src="dict.js"></script>
+    <script src="translation.js"></script>
+    <script src="index.js"></script>
+    <script>
+        //localStorage.setItem('userDict', '');
+        showDictContent();
+
+        onClickOutside(".settings-page-arr-enable", hide_settings);
+        document.querySelector('.new').addEventListener('click', show_new_question_arr);
+        document.querySelector('.new-word-btn').addEventListener('click', send_data);
+        document.querySelector('.settings').addEventListener('click', show_settings);
+        onClickOutside(".enable", hide_new_question_arr);
+    </script>
+</body>
+</html>

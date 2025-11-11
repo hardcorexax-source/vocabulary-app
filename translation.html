@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3>Введите слово на англ</h3>
+    <input type="text" name="" id="engWord">
+
+    <button>Перевести</button>
+
+    <h3>Перевод на русский</h3>
+    <p></p>
+
+
+
+
+    <script src="dict.js"></script>
+    <script>
+        function translate_en_2_ru(text) {
+            const textLower = text.toLowerCase();
+            text = '';
+            for (let i = 0; i < textLower.length - 1; i++){
+                text += textLower[i];
+            }
+
+            if (textLower[textLower.length - 1] !== ' ') {
+                text += textLower[textLower.length - 1];
+            }
+
+            let translates = [];
+
+            for (let i = 0; i < 86062; i++) {
+                if (DICT_ARR[i]["word"] === text) {
+                    translates = DICT_ARR[i]["translates"];
+                }
+            }
+
+            return translates;
+        }
+
+        function translate_ru_2_en(text) {
+            const textLower = text.toLowerCase();
+            text = '';
+            for (let i = 0; i < textLower.length - 1; i++){
+                text += textLower[i];
+            }
+
+            if (textLower[textLower.length - 1] !== ' ') {
+                text += textLower[textLower.length - 1];
+            }
+
+            let words = [];
+
+            for (let i = 0; i < 86062; i++) {
+                const DICT_ARR_TRANSLATES = DICT_ARR[i]["translates"];
+                if (DICT_ARR_TRANSLATES.includes(text)) {
+                    words.push(DICT_ARR[i]["word"]);
+                    console.log(DICT_ARR[i]["word"]);
+                }
+            }
+
+            return words;
+        }
+
+        function show_trans() {
+            const ENG_WORD = document.querySelector('#engWord').value;
+            const TRANS_WORD = translate_en_2_ru(ENG_WORD);
+            document.querySelector('p').innerHTML = TRANS_WORD;
+        }
+
+        document.querySelector('button').addEventListener('click', show_trans);
+
+    </script>
+</body>
+</html>

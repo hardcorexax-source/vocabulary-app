@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="import-json-arr">
+        <h1>Вставьте сюда JSON код</h1>
+
+        <div class="textarea"><textarea name="" id="import-json-textarea"></textarea></div>
+
+        <button id="import-json-textarea-btn" class="period-mode-btn" onclick="send_data_by_json()">Отправить</button>
+
+
+        <nav class="bottom-nav-arr">
+            <nav class="bottom-nav">
+                <a class="dict" href="dictPage.html">Словарь</a>
+                <a class="new" href="#">+ Слово</a>
+                <a class="settings" href="index.html">Игра</a>
+            </nav>
+        </nav>
+
+        <div class="new-word-arr">
+            <div style="position: relative;width: 100%;display: flex;justify-content: end;"><button onclick="hide_new_question_arr()" style="background-color: transparent;border: none;"><svg viewBox="0 0 32 32" width="30px" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#7f7f7f7f;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1" x1="7" x2="25" y1="25" y2="7"/></g></svg></button></div>
+            <h3 class="h3-eng">English word<input type="text" class="input-word input-english"></h3>
+            <h3>Слово на русском<input type="text" class="input-word input-russian"></h3>
+            <button class="new-word-btn">Добавить</button>
+        </div>
+
+    </div>
+
+
+    <script src="translation.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

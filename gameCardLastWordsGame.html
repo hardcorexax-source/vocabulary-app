@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="game-card-arr">
+        <div class="game-card game-card-period">
+        </div>
+    </div>
+    <button class="back-to-game-btn"><svg fill="#7f7f7f" viewBox="3 0 52 52" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><g data-name="Group 132" id="Group_132"><path d="M38,52a2,2,0,0,1-1.41-.59l-24-24a2,2,0,0,1,0-2.82l24-24a2,2,0,0,1,2.82,0,2,2,0,0,1,0,2.82L16.83,26,39.41,48.59A2,2,0,0,1,38,52Z"/></g></svg></button>
+
+    <script src="index.js"></script>
+    <script>
+        
+        document.querySelector(".back-to-game-btn").addEventListener('click', back_to_game);
+
+        let periodModeCounterLet = Number(localStorage.getItem("periodMode"));
+        const PERIOD_MODE = periodModeCounterLet;
+
+        const USER_DICT = JSON.parse(localStorage.getItem("userDict"));
+
+        let period_words_arr1 = [];
+
+        if (USER_DICT.length >= PERIOD_MODE) {
+            for (let i = PERIOD_MODE; i > 0; i--) {
+                period_words_arr1.push(USER_DICT[USER_DICT.length-i])
+            }
+        } else {
+            period_words_arr1 = JSON.parse(localStorage.getItem("userDict"));
+        }
+
+        let periodWordsArr = [];
+        if (USER_DICT.length >= PERIOD_MODE) {
+            for (let i = PERIOD_MODE; i > 0; i--) {
+                periodWordsArr.push(USER_DICT[USER_DICT.length-i])
+            }
+        } else {
+            periodWordsArr = JSON.parse(localStorage.getItem("userDict"));
+        }
+
+        periodWordsArr = shuffle(periodWordsArr);
+
+        function reload_game_button_click() {
+            location.reload();
+        }
+
+        function show_period_game(periodModeCounter) {
+            if (periodModeCounter) {
+                if (periodWordsArr.length) {
+                    let period_words_arr_shuffle = [];
+                    const period_words_arr = shuffle(period_words_arr1);
+                    for (let i = 0; i < period_words_arr.length; i++) {
+                        if (period_words_arr[i]['word'] !== periodWordsArr[0]['word']) {
+                            if (period_words_arr_shuffle.length < 3) {
+                                period_words_arr_shuffle.push(period_words_arr[i]);
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    period_words_arr_shuffle.push(periodWordsArr[0]);
+
+                    period_words_arr_shuffle = shuffle(period_words_arr_shuffle);
+                    document.querySelector(".game-card-period").innerHTML = `
+                        <div class="progress" style="width: 50%; margin: 0 25%;height: 10px; background: #7f7f7f44; border-radius: 10px; border: solid 1px #9999995f;"><div class="value" style="width: ${(Number(localStorage.getItem("periodMode"))-periodModeCounter)/Number(localStorage.getItem("periodMode"))*100}%; height: 10px; background: linear-gradient(90deg, #55aa0099, #00aa5599); border-radius: 10px;"></div></div>
+                        <h1>${periodWordsArr[0]["word"]}</h1>
+                        <div class="game-variant-btn">
+                            <button class="game-variant-btn-btn" onclick='period_game_button_click(${(periodWordsArr[0]['word'] === period_words_arr_shuffle[0]['word'])}, ${JSON.stringify(periodWordsArr[0]['translates'])})'>
+                                ${period_words_arr_shuffle[0]["translates"].join(", ")}
+                            </button><br>
+                            <button class="game-variant-btn-btn" onclick='period_game_button_click(${(periodWordsArr[0]['word'] === period_words_arr_shuffle[1]['word'])}, ${JSON.stringify(periodWordsArr[0]['translates'])})'>
+                                ${period_words_arr_shuffle[1]["translates"].join(", ")}
+                            </button><br>
+                            <button class="game-variant-btn-btn" onclick='period_game_button_click(${(periodWordsArr[0]['word'] === period_words_arr_shuffle[2]['word'])}, ${JSON.stringify(periodWordsArr[0]['translates'])})'>
+                                ${period_words_arr_shuffle[2]["translates"].join(", ")}
+                            </button><br>
+                            <button class="game-variant-btn-btn" onclick='period_game_button_click(${(periodWordsArr[0]['word'] === period_words_arr_shuffle[3]['word'])}, ${JSON.stringify(periodWordsArr[0]['translates'])})'>
+                                ${period_words_arr_shuffle[3]["translates"].join(", ")}
+                            </button>
+                        </div>`;
+                    periodWordsArr.shift();
+                    periodWordsArr = shuffle(periodWordsArr);
+                } else {
+                    document.querySelector(".game-card-period").innerHTML = `<div class="progress" style="width: 50%; margin: 0 25%;height: 10px; background: #7f7f7f44; border-radius: 10px; border: solid 1px #9999995f;"><div class="value" style="width: 100%; height: 10px; background: linear-gradient(90deg, #55aa0099, #00aa5599); border-radius: 10px;"></div></div><h1>Игра завершена!</h1><h2>Хотите сыграть в этом режиме еще раз?</h2><button class="game-variant-btn-btn game-card-period-btn" onclick="reload_game_button_click()">Да</button>`;
+                    periodModeCounter = 1;
+                }
+            } else {
+                document.querySelector(".game-card-period").innerHTML = `<div class="progress" style="width: 50%; margin: 0 25%;height: 10px; background: #7f7f7f44; border-radius: 10px; border: solid 1px #9999995f;"><div class="value" style="width: 100%; height: 10px; background: linear-gradient(90deg, #55aa0099, #00aa5599); border-radius: 10px;"></div></div><h1>Игра завершена!</h1><h2>Хотите сыграть в этом режиме еще раз?</h2><button class="game-variant-btn-btn game-card-period-btn" onclick="reload_game_button_click()">Да</button>`;
+                periodModeCounter = 1;
+            }
+
+            return periodModeCounter - 1;
+        }
+
+        function period_game_button_click(resultIsRigth, rightAnswArr) {
+            let rightAnsw = '';
+            if (rightAnswArr.length > 1) {
+                for (let i = 0; i < rightAnswArr.length - 1; i++) {
+                    rightAnsw += `${rightAnswArr[i]}, `;
+                }
+            }
+            rightAnsw += rightAnswArr[rightAnswArr.length - 1];
+
+            if (periodModeCounterLet !== PERIOD_MODE) {
+                let alertMsg = '';
+                if (resultIsRigth) {
+                    alertMsg += `Правильно! :)`;
+                } else {
+                    alertMsg += `Неправильно! :(`;
+                }
+                alertMsg += `\n\nКорректные переводы:\n\n${rightAnsw}`;
+
+                alert(alertMsg);
+            }
+            periodModeCounterLet = show_period_game(periodModeCounterLet);
+        }
+
+        period_game_button_click(true, ["a"]);
+    </script>
+</body>
+</html>

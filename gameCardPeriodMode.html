@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Выберите количество карточек в игре</h1>
+    <div class="game-mode-arr">
+        <div class="buttons-arr" style="padding: 25px; display: flex; justify-content: space-evenly;">
+            <button class="period-mode-btn period-mode-5-btn" onclick="localStorage.setItem('periodMode', '5'); location.href = '/gameCardPeriodGame.html';">5</button>
+            <button class="period-mode-btn period-mode-10-btn" onclick="localStorage.setItem('periodMode', '10'); location.href = '/gameCardPeriodGame.html';">10</button>
+            <button class="period-mode-btn period-mode-20-btn" onclick="localStorage.setItem('periodMode', '20'); location.href = '/gameCardPeriodGame.html';" >20</button>
+            <button class="period-mode-btn period-mode-other-btn">Другое</button>
+        </div>
+    </div>
+     <button class="back-to-game-btn"><svg fill="#7f7f7f" viewBox="3 0 52 52" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><g data-name="Group 132" id="Group_132"><path d="M38,52a2,2,0,0,1-1.41-.59l-24-24a2,2,0,0,1,0-2.82l24-24a2,2,0,0,1,2.82,0,2,2,0,0,1,0,2.82L16.83,26,39.41,48.59A2,2,0,0,1,38,52Z"/></g></svg></button>
+
+<script src="index.js"></script>
+<script>
+    document.querySelector(".back-to-game-btn").addEventListener('click', back_to_game);
+    
+    const USER_DICT = JSON.parse(localStorage.getItem("userDict")) || [];
+    const USER_DICT_LENGTH = USER_DICT.length;
+    const firstDateArr = JSON.parse(localStorage.getItem("userPeriod"))[0];
+    const secondDateArr = JSON.parse(localStorage.getItem("userPeriod"))[1];
+
+    function all_words_in_period() {
+        let allWordsArr = [];
+        for (let i = 0; i < USER_DICT_LENGTH; i++) {
+            const wordDate = USER_DICT[i]["date"].split('.');
+            const WORD_DATE = [Number(wordDate[2]),Number(wordDate[1]),Number(wordDate[0])];
+            let normalPeriod = false;
+
+            if ((firstDateArr[0] <= WORD_DATE[0]) && (WORD_DATE[0] <= secondDateArr[0]) ){
+                if ((firstDateArr[1] <= WORD_DATE[1]) && (WORD_DATE[1] <= secondDateArr[1])){
+                    if ((firstDateArr[2] <= WORD_DATE[2]) && (WORD_DATE[2] <= secondDateArr[2])){
+                        normalPeriod = true;
+                    }
+                } 
+            }
+
+            if (normalPeriod) {
+                allWordsArr.push(USER_DICT[i]);
+            }
+        }
+
+        
+        return allWordsArr;
+    }
+
+    const allWordsPeriod = JSON.stringify(all_words_in_period());
+
+    localStorage.setItem("periodWordsArr", allWordsPeriod);
+</script>
+</body>
+</html>
