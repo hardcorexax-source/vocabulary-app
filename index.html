@@ -51,7 +51,22 @@
             <a href="exportJSON.html"><h4>Экспорт JSON</h4></a>
         </div>
     </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let tg = window.Telegram?.WebApp;
+        
+        if (tg) {
+            tg.ready();
+            
+            tg.expand();
+            // например, если используете SDK
+            tg.requestFullscreen(); 
+            
+            // Отключаем подтверждение закрытия
+            tg.isClosingConfirmationEnabled = false;
 
+        }
+    </script>
     <script src="dict.js"></script>
     <script src="translation.js"></script>
     <script src="index.js"></script>
