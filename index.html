@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div style="width: 100vw; height: 60px; display: none;">for-tg-arr</div>
     <h1>Игра</h1>
 
     <div class="game-card-arr">
@@ -56,6 +57,8 @@
         let tg = window.Telegram?.WebApp;
         
         if (tg) {
+            const tgSpace = document.querySelector("#for-tg-arr");
+            tgSpace.style.display = "block";
             tg.ready();
             
             tg.expand();
