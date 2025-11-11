@@ -47,7 +47,14 @@
         <div class="game-card game-card-random-words"></div>
     </div>
 
-
+    <script>
+        sessionStorage.setItem("tg", 0);
+        
+        if (sessionStorage.getItem("tg")) {
+            const tgSpace = document.querySelector("#for-tg-arr");
+            tgSpace.style.display = "block";
+        }
+    </script>
 
     <script src="dict.js"></script>
     <script src="translation.js"></script>

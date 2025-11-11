@@ -54,9 +54,11 @@
     </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+        sessionStorage.setItem("tg", 0);
         let tg = window.Telegram?.WebApp;
         
         if (tg) {
+            sessionStorage.setItem("tg", 1);
             const tgSpace = document.querySelector("#for-tg-arr");
             tgSpace.style.display = "block";
             tg.ready();

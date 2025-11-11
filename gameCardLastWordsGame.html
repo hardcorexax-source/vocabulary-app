@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <script>
+        sessionStorage.setItem("tg", 0);
+        
+        if (sessionStorage.getItem("tg")) {
+            const tgSpace = document.querySelector("#for-tg-arr");
+            tgSpace.style.display = "block";
+        }
+    </script>
 </head>
 <body>
     <div style="width: 100vw; height: 70px; display: none;" id="for-tg-arr"></div>
